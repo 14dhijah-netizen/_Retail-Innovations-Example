@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wireframe - Login / Register Page</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+.page-label { text-align: center; font-size: 14px; color: #666; margin-bottom: 10px; font-weight: bold; }
+.wireframe { width: 1200px; margin: 0 auto; background: white; border: 2px solid #333; min-height: 750px; }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 15px 30px; border-bottom: 2px solid #333; background: #fafafa; }
+.nav-logo { font-size: 20px; font-weight: bold; color: #333; }
+.nav-links { display: flex; gap: 25px; }
+.nav-link { padding: 8px 16px; border: 1px solid #999; border-radius: 4px; font-size: 13px; color: #555; }
+.nav-link.active { background: #333; color: white; border-color: #333; }
+
+.auth-container { display: flex; min-height: 650px; }
+.auth-left { flex: 1; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-right: 2px solid #333; padding: 40px; }
+.auth-left .placeholder { width: 100%; height: 400px; background: #e0e0e0; border: 1px dashed #999; display: flex; align-items: center; justify-content: center; color: #666; font-size: 13px; text-align: center; }
+.auth-right { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
+
+.tab-switch { display: flex; margin-bottom: 30px; border: 1px solid #999; border-radius: 4px; overflow: hidden; }
+.tab { padding: 12px 40px; font-size: 14px; color: #555; background: #fafafa; cursor: pointer; }
+.tab.active { background: #333; color: white; }
+
+.form-group { width: 100%; max-width: 380px; margin-bottom: 18px; }
+.form-label { display: block; font-size: 13px; color: #555; margin-bottom: 6px; font-weight: bold; }
+.form-input { width: 100%; padding: 12px 15px; border: 1px solid #999; font-size: 13px; color: #666; background: #fafafa; }
+.form-input.error { border-color: red; }
+.form-hint { font-size: 11px; color: #999; margin-top: 4px; }
+.form-error { font-size: 11px; color: red; margin-top: 4px; display: none; }
+
+.checkbox-row { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; width: 100%; max-width: 380px; }
+.checkbox { width: 18px; height: 18px; border: 1px solid #999; }
+.checkbox-label { font-size: 12px; color: #555; }
+.forgot { font-size: 12px; color: #666; text-decoration: underline; margin-left: auto; }
+
+.submit-btn { width: 100%; max-width: 380px; padding: 14px; background: #333; color: white; border: none; font-size: 15px; font-weight: bold; margin-bottom: 15px; text-align: center; }
+
+.divider { display: flex; align-items: center; gap: 15px; width: 100%; max-width: 380px; margin-bottom: 15px; }
+.divider-line { flex: 1; height: 1px; background: #ccc; }
+.divider-text { font-size: 12px; color: #999; }
+
+.social-btns { display: flex; gap: 12px; width: 100%; max-width: 380px; }
+.social-btn { flex: 1; padding: 12px; border: 1px solid #999; text-align: center; font-size: 12px; color: #555; background: #fafafa; }
+
+.security-note { margin-top: 20px; padding: 12px 18px; background: #f0f8ff; border: 1px dashed #4a90d9; font-size: 11px; color: #555; max-width: 380px; width: 100%; text-align: center; }
+
+.footer { padding: 20px 30px; background: #333; color: #aaa; font-size: 12px; text-align: center; }
+
+/* REGISTRATION PANEL (hidden by default, shows concept) */
+.register-note { margin-top: 12px; font-size: 12px; color: #777; max-width: 380px; text-align: center; }
+
+/* Validation annotations */
+.annotation-box { background: #fffde7; border: 1px solid #f9a825; padding: 15px; margin: 20px auto; max-width: 1200px; font-size: 12px; color: #333; }
+.annotation-box h4 { margin-bottom: 8px; color: #e65100; }
+.annotation-box ul { padding-left: 20px; line-height: 1.8; }
+</style>
+</head>
+<body>
+<div class="page-label">WIREFRAME: LOGIN / REGISTER PAGE — Retail Innovations</div>
+<div class="wireframe">
+  <nav class="nav">
+    <div class="nav-logo">[Logo] Retail Innovations</div>
+    <div class="nav-links">
+      <div class="nav-link">Home</div>
+      <div class="nav-link">Products</div>
+      <div class="nav-link">About</div>
+      <div class="nav-link active">Login / Sign Up</div>
+    </div>
+  </nav>
+
+  <div class="auth-container">
+    <!-- LEFT: Branding / illustration -->
+    <div class="auth-left">
+      <div class="placeholder">[ Branding Illustration ]<br><br>Welcome to Retail Innovations<br>Tagline / promotional message<br><br>500 x 400px</div>
+    </div>
+
+    <!-- RIGHT: Login Form -->
+    <div class="auth-right">
+      <div class="tab-switch">
+        <div class="tab active">Login</div>
+        <div class="tab">Register</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Email Address *</label>
+        <div class="form-input">user@example.com</div>
+        <div class="form-hint">Enter your registered email address</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Password *</label>
+        <div class="form-input">••••••••••</div>
+        <div class="form-hint">Min. 8 characters, 1 uppercase, 1 number, 1 special char</div>
+      </div>
+
+      <div class="checkbox-row">
+        <div class="checkbox"></div>
+        <span class="checkbox-label">Remember me</span>
+        <a class="forgot">Forgot password?</a>
+      </div>
+
+      <div class="submit-btn">Login</div>
+
+      <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-text">OR</span>
+        <div class="divider-line"></div>
+      </div>
+
+      <div class="social-btns">
+        <div class="social-btn">[G] Google</div>
+        <div class="social-btn">[f] Facebook</div>
+      </div>
+
+      <div class="register-note">Don't have an account? <u>Sign up here</u></div>
+
+      <div class="security-note">🔒 Your data is encrypted and stored securely in compliance with GDPR regulations.</div>
+    </div>
+  </div>
+
+  <footer class="footer">© 2025 Retail Innovations | Privacy Policy | Terms of Service | Cookie Policy</footer>
+</div>
+
+<!-- ANNOTATION: Registration form fields (shown when Register tab active) -->
+<div class="annotation-box">
+  <h4>Registration Form Fields (when "Register" tab is selected):</h4>
+  <ul>
+    <li><strong>Full Name *</strong> — Text input, min 2 chars, letters and spaces only</li>
+    <li><strong>Email Address *</strong> — Email input, validated format (regex), uniqueness checked via Supabase</li>
+    <li><strong>Password *</strong> — Min 8 chars, must include: 1 uppercase, 1 lowercase, 1 number, 1 special character</li>
+    <li><strong>Confirm Password *</strong> — Must match password field exactly</li>
+    <li><strong>Account Type</strong> — Radio buttons: "Customer" (default) / "Retailer"</li>
+    <li><strong>Terms & Conditions checkbox *</strong> — Must be checked to submit; links to full T&C page</li>
+    <li><strong>GDPR Consent checkbox *</strong> — Explicit consent for data processing</li>
+    <li><strong>[Register] button</strong> — Submits form, triggers Supabase auth.signUp()</li>
+    <li><strong>Already have an account?</strong> — Link switches back to Login tab</li>
+  </ul>
+  <h4 style="margin-top:12px;">Client-Side Validation (JavaScript):</h4>
+  <ul>
+    <li>Real-time validation on blur (when user leaves field)</li>
+    <li>Red border + error message for invalid fields</li>
+    <li>Green tick for valid fields</li>
+    <li>Submit button disabled until all required fields valid</li>
+    <li>Password strength meter (weak/medium/strong)</li>
+  </ul>
+</div>
+</body>
+</html>

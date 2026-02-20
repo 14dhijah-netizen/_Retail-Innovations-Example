@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wireframe - Home Page</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+.page-label { text-align: center; font-size: 14px; color: #666; margin-bottom: 10px; font-weight: bold; }
+.wireframe { width: 1200px; margin: 0 auto; background: white; border: 2px solid #333; min-height: 900px; position: relative; }
+.placeholder { background: #e0e0e0; border: 1px dashed #999; display: flex; align-items: center; justify-content: center; color: #666; font-size: 13px; text-align: center; }
+/* NAV */
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 15px 30px; border-bottom: 2px solid #333; background: #fafafa; }
+.nav-logo { font-size: 20px; font-weight: bold; color: #333; }
+.nav-links { display: flex; gap: 25px; }
+.nav-link { padding: 8px 16px; border: 1px solid #999; border-radius: 4px; font-size: 13px; color: #555; }
+.nav-link.cta { background: #333; color: white; border-color: #333; }
+/* HERO */
+.hero { display: flex; padding: 50px 30px; gap: 40px; border-bottom: 2px solid #333; }
+.hero-text { flex: 1; }
+.hero-text h1 { font-size: 28px; color: #333; margin-bottom: 10px; border-bottom: 1px dashed #ccc; padding-bottom: 5px; }
+.hero-text p { font-size: 14px; color: #777; line-height: 1.6; margin-bottom: 20px; }
+.hero-text .btn-row { display: flex; gap: 12px; }
+.hero-text .btn { padding: 12px 28px; border: 1px solid #999; font-size: 13px; color: #555; }
+.hero-text .btn.primary { background: #333; color: white; border-color: #333; }
+.hero-image { flex: 1; }
+.hero-image .placeholder { height: 280px; }
+/* FEATURES */
+.features { padding: 40px 30px; border-bottom: 2px solid #333; }
+.features h2 { text-align: center; font-size: 22px; color: #333; margin-bottom: 30px; }
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+.feature-card { border: 1px dashed #999; padding: 25px; text-align: center; background: #fafafa; }
+.feature-icon { width: 60px; height: 60px; margin: 0 auto 15px; background: #e0e0e0; border: 1px dashed #999; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #666; }
+.feature-card h3 { font-size: 16px; color: #333; margin-bottom: 8px; }
+.feature-card p { font-size: 12px; color: #777; line-height: 1.5; }
+/* PROMO BANNER */
+.promo { padding: 35px 30px; text-align: center; border-bottom: 2px solid #333; background: #f0f0f0; }
+.promo h2 { font-size: 20px; color: #333; margin-bottom: 8px; }
+.promo p { font-size: 13px; color: #777; margin-bottom: 15px; }
+.promo .btn { padding: 12px 28px; border: 1px solid #999; font-size: 13px; background: #333; color: white; }
+/* TRENDING */
+.trending { padding: 40px 30px; border-bottom: 2px solid #333; }
+.trending h2 { font-size: 22px; color: #333; margin-bottom: 25px; }
+.products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.product-card { border: 1px dashed #999; padding: 15px; background: #fafafa; }
+.product-img { height: 140px; background: #e0e0e0; border: 1px dashed #bbb; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; margin-bottom: 10px; }
+.product-card h4 { font-size: 14px; color: #333; margin-bottom: 5px; }
+.product-card .price { font-size: 13px; color: #555; margin-bottom: 5px; }
+.product-card .rating { font-size: 11px; color: #999; }
+/* FOOTER */
+.footer { padding: 30px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; background: #333; color: #ccc; }
+.footer h4 { font-size: 14px; color: white; margin-bottom: 10px; }
+.footer p, .footer a { font-size: 12px; color: #aaa; line-height: 1.8; text-decoration: none; display: block; }
+/* Annotations */
+.annotation { position: absolute; background: #fffde7; border: 1px solid #f9a825; padding: 5px 10px; font-size: 11px; color: #333; border-radius: 4px; z-index: 10; }
+</style>
+</head>
+<body>
+<div class="page-label">WIREFRAME: HOME PAGE — Retail Innovations</div>
+<div class="wireframe">
+  <!-- NAVIGATION BAR -->
+  <nav class="nav">
+    <div class="nav-logo">[Logo] Retail Innovations</div>
+    <div class="nav-links">
+      <div class="nav-link">Home</div>
+      <div class="nav-link">Products</div>
+      <div class="nav-link">Dashboard</div>
+      <div class="nav-link">Loyalty</div>
+      <div class="nav-link">About</div>
+      <div class="nav-link cta">Login / Sign Up</div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>[Headline Text]</h1>
+      <p>[Subheading paragraph describing the retail platform, its unique selling points, and core value proposition for both retailers and customers. 2-3 lines of descriptive text.]</p>
+      <div class="btn-row">
+        <div class="btn primary">Browse Products</div>
+        <div class="btn">Learn More</div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="placeholder">[ Hero Image / Illustration ]<br>600 x 280px</div>
+    </div>
+  </section>
+
+  <!-- FEATURE HIGHLIGHTS -->
+  <section class="features">
+    <h2>Our Key Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">Icon</div>
+        <h3>Product Search & Filter</h3>
+        <p>Advanced search with category, price range and rating filters for effortless product discovery.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">Icon</div>
+        <h3>Retail Analytics</h3>
+        <p>Real-time dashboard showing sales trends, inventory levels and customer behaviour insights.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">Icon</div>
+        <h3>Loyalty Programme</h3>
+        <p>Earn and redeem points on every purchase. Track rewards and unlock exclusive member benefits.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROMOTIONAL BANNER -->
+  <section class="promo">
+    <h2>[Promotional Offer / Call to Action]</h2>
+    <p>[Supporting text about current promotions, sign-up incentives or seasonal offers]</p>
+    <div class="btn">Join Now — Earn 500 Bonus Points</div>
+  </section>
+
+  <!-- TRENDING PRODUCTS -->
+  <section class="trending">
+    <h2>Trending Products</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">Product Image 1</div>
+        <h4>[Product Name]</h4>
+        <div class="price">£XX.XX</div>
+        <div class="rating">★★★★☆ (4.2)</div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">Product Image 2</div>
+        <h4>[Product Name]</h4>
+        <div class="price">£XX.XX</div>
+        <div class="rating">★★★★★ (4.8)</div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">Product Image 3</div>
+        <h4>[Product Name]</h4>
+        <div class="price">£XX.XX</div>
+        <div class="rating">★★★☆☆ (3.5)</div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">Product Image 4</div>
+        <h4>[Product Name]</h4>
+        <div class="price">£XX.XX</div>
+        <div class="rating">★★★★☆ (4.0)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>
+      <h4>Retail Innovations</h4>
+      <p>Transforming retail with smart technology and customer-first design.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a>Home</a><a>Products</a><a>Dashboard</a><a>Loyalty</a>
+    </div>
+    <div>
+      <h4>Support</h4>
+      <a>FAQ</a><a>Contact Us</a><a>Privacy Policy</a><a>Terms of Service</a>
+    </div>
+    <div>
+      <h4>Connect</h4>
+      <a>Email: info@retailinnovations.co.uk</a>
+      <a>Phone: 0800 XXX XXXX</a>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

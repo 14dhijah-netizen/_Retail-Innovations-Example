@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wireframe - FP3: Loyalty Programme</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+.page-label { text-align: center; font-size: 14px; color: #666; margin-bottom: 10px; font-weight: bold; }
+.wireframe { width: 1200px; margin: 0 auto; background: white; border: 2px solid #333; }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 15px 30px; border-bottom: 2px solid #333; background: #fafafa; }
+.nav-logo { font-size: 20px; font-weight: bold; color: #333; }
+.nav-links { display: flex; gap: 25px; }
+.nav-link { padding: 8px 16px; border: 1px solid #999; border-radius: 4px; font-size: 13px; color: #555; }
+.nav-link.active { background: #333; color: white; }
+
+.loyalty-content { padding: 30px; }
+
+/* POINTS SUMMARY BANNER */
+.points-banner { display: flex; align-items: center; background: linear-gradient(135deg, #2c2c2c, #444); color: white; padding: 30px; border-radius: 8px; margin-bottom: 30px; gap: 40px; }
+.points-circle { width: 120px; height: 120px; border: 4px solid white; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.points-circle .number { font-size: 32px; font-weight: bold; }
+.points-circle .label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.points-info { flex: 1; }
+.points-info h2 { font-size: 22px; margin-bottom: 8px; }
+.points-info p { font-size: 13px; color: #ccc; margin-bottom: 12px; }
+.tier-badge { display: inline-block; padding: 6px 18px; border: 1px solid #aaa; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; border-radius: 20px; }
+.points-progress { width: 300px; }
+.points-progress .label-row { display: flex; justify-content: space-between; font-size: 11px; color: #aaa; margin-bottom: 5px; }
+.progress-bar { height: 8px; background: #555; border-radius: 4px; }
+.progress-fill { height: 8px; background: white; border-radius: 4px; width: 65%; }
+.points-progress .next-tier { font-size: 11px; color: #aaa; margin-top: 5px; }
+
+/* TAB NAV */
+.tabs { display: flex; gap: 0; margin-bottom: 25px; border-bottom: 2px solid #ddd; }
+.tab { padding: 14px 25px; font-size: 14px; color: #666; border-bottom: 3px solid transparent; }
+.tab.active { color: #333; font-weight: bold; border-bottom-color: #333; }
+
+/* REWARDS SECTION */
+.section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.section-header h3 { font-size: 18px; color: #333; }
+.filter-select { padding: 8px 15px; border: 1px solid #999; font-size: 12px; }
+
+.rewards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 35px; }
+.reward-card { border: 1px dashed #999; padding: 20px; background: #fafafa; text-align: center; position: relative; }
+.reward-img { height: 120px; background: #e0e0e0; border: 1px dashed #bbb; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #888; margin-bottom: 12px; }
+.reward-card h4 { font-size: 15px; color: #333; margin-bottom: 6px; }
+.reward-card .desc { font-size: 12px; color: #777; margin-bottom: 10px; line-height: 1.4; }
+.reward-cost { font-size: 16px; font-weight: bold; color: #333; margin-bottom: 10px; }
+.redeem-btn { width: 100%; padding: 10px; background: #333; color: white; border: none; font-size: 13px; text-align: center; }
+.redeem-btn.disabled { background: #ccc; color: #888; }
+.reward-badge { position: absolute; top: 10px; right: 10px; background: #e65100; color: white; padding: 3px 8px; font-size: 10px; border-radius: 3px; }
+
+/* POINTS HISTORY TABLE */
+.history-section { margin-top: 10px; }
+.history-section h3 { font-size: 18px; color: #333; margin-bottom: 15px; }
+.history-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.history-table th { text-align: left; padding: 12px 10px; background: #f5f5f5; color: #555; font-weight: bold; border-bottom: 2px solid #ddd; }
+.history-table td { padding: 12px 10px; border-bottom: 1px solid #eee; color: #555; }
+.points-earned { color: #2e7d32; font-weight: bold; }
+.points-spent { color: #c62828; font-weight: bold; }
+.transaction-type { padding: 3px 10px; border-radius: 10px; font-size: 11px; }
+.type-purchase { background: #e8f5e9; color: #2e7d32; }
+.type-redeem { background: #ffebee; color: #c62828; }
+.type-bonus { background: #fff3e0; color: #e65100; }
+
+.pagination { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+.page-btn { width: 32px; height: 32px; border: 1px solid #999; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #555; }
+.page-btn.active { background: #333; color: white; }
+
+/* REFERRAL SECTION */
+.referral-box { margin-top: 30px; background: #f0f8ff; border: 1px dashed #4a90d9; padding: 25px; display: flex; justify-content: space-between; align-items: center; }
+.referral-box .text h4 { font-size: 16px; color: #333; margin-bottom: 6px; }
+.referral-box .text p { font-size: 13px; color: #666; }
+.referral-box .code-area { display: flex; gap: 10px; align-items: center; }
+.referral-code { padding: 12px 20px; background: white; border: 2px dashed #4a90d9; font-size: 16px; font-weight: bold; color: #333; letter-spacing: 2px; }
+.copy-btn { padding: 12px 20px; background: #333; color: white; font-size: 13px; border: none; }
+
+.footer { padding: 20px 30px; background: #333; color: #aaa; font-size: 12px; text-align: center; margin-top: 0; }
+</style>
+</head>
+<body>
+<div class="page-label">WIREFRAME: FP3 — LOYALTY PROGRAMME (Customer View) — Retail Innovations</div>
+<div class="wireframe">
+  <nav class="nav">
+    <div class="nav-logo">[Logo] Retail Innovations</div>
+    <div class="nav-links">
+      <div class="nav-link">Home</div>
+      <div class="nav-link">Products</div>
+      <div class="nav-link">Dashboard</div>
+      <div class="nav-link active">Loyalty</div>
+      <div class="nav-link">Logout</div>
+    </div>
+  </nav>
+
+  <div class="loyalty-content">
+    <!-- POINTS SUMMARY BANNER -->
+    <div class="points-banner">
+      <div class="points-circle">
+        <div class="number">2,450</div>
+        <div class="label">Points</div>
+      </div>
+      <div class="points-info">
+        <h2>Welcome back, [User Name]!</h2>
+        <p>You're a Silver tier member. Keep earning to unlock Gold benefits!</p>
+        <div class="tier-badge">★ Silver Member</div>
+      </div>
+      <div class="points-progress">
+        <div class="label-row"><span>Silver (2,000)</span><span>Gold (5,000)</span></div>
+        <div class="progress-bar"><div class="progress-fill"></div></div>
+        <div class="next-tier">2,550 more points to reach Gold tier</div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <div class="tab active">Available Rewards</div>
+      <div class="tab">Points History</div>
+      <div class="tab">Tier Benefits</div>
+      <div class="tab">Referrals</div>
+    </div>
+
+    <!-- REWARDS GRID -->
+    <div class="section-header">
+      <h3>Available Rewards</h3>
+      <select class="filter-select">
+        <option>All Rewards</option>
+        <option>Affordable (under 1000 pts)</option>
+        <option>Premium (1000+ pts)</option>
+      </select>
+    </div>
+
+    <div class="rewards-grid">
+      <div class="reward-card">
+        <div class="reward-img">Reward Image</div>
+        <h4>10% Off Next Order</h4>
+        <div class="desc">Get 10% discount on your next purchase. Valid for 30 days after redemption.</div>
+        <div class="reward-cost">500 Points</div>
+        <div class="redeem-btn">Redeem Now</div>
+      </div>
+      <div class="reward-card">
+        <div class="reward-badge">POPULAR</div>
+        <div class="reward-img">Reward Image</div>
+        <h4>Free Shipping Voucher</h4>
+        <div class="desc">Free standard delivery on any order. No minimum spend required.</div>
+        <div class="reward-cost">750 Points</div>
+        <div class="redeem-btn">Redeem Now</div>
+      </div>
+      <div class="reward-card">
+        <div class="reward-img">Reward Image</div>
+        <h4>£25 Gift Card</h4>
+        <div class="desc">£25 store credit added to your account. Can be used on any product.</div>
+        <div class="reward-cost">2,500 Points</div>
+        <div class="redeem-btn">Redeem Now</div>
+      </div>
+      <div class="reward-card">
+        <div class="reward-img">Reward Image</div>
+        <h4>Exclusive Bundle Deal</h4>
+        <div class="desc">Access to exclusive product bundles only available to loyalty members.</div>
+        <div class="reward-cost">1,200 Points</div>
+        <div class="redeem-btn">Redeem Now</div>
+      </div>
+      <div class="reward-card">
+        <div class="reward-img">Reward Image</div>
+        <h4>Early Access Pass</h4>
+        <div class="desc">Get 24-hour early access to new product launches and limited editions.</div>
+        <div class="reward-cost">800 Points</div>
+        <div class="redeem-btn">Redeem Now</div>
+      </div>
+      <div class="reward-card">
+        <div class="reward-img">Reward Image</div>
+        <h4>£100 Gift Card</h4>
+        <div class="desc">£100 store credit. Our most valuable reward for dedicated members.</div>
+        <div class="reward-cost">8,000 Points</div>
+        <div class="redeem-btn disabled">Not Enough Points</div>
+      </div>
+    </div>
+
+    <!-- POINTS HISTORY TABLE -->
+    <div class="history-section">
+      <h3>Recent Points Activity</h3>
+      <table class="history-table">
+        <tr><th>Date</th><th>Description</th><th>Type</th><th>Points</th><th>Balance</th></tr>
+        <tr><td>15/01/2025</td><td>Purchase: Wireless Headphones</td><td><span class="transaction-type type-purchase">Purchase</span></td><td class="points-earned">+50</td><td>2,450</td></tr>
+        <tr><td>12/01/2025</td><td>Redeemed: 10% Off Voucher</td><td><span class="transaction-type type-redeem">Redeem</span></td><td class="points-spent">-500</td><td>2,400</td></tr>
+        <tr><td>10/01/2025</td><td>Welcome Bonus</td><td><span class="transaction-type type-bonus">Bonus</span></td><td class="points-earned">+500</td><td>2,900</td></tr>
+        <tr><td>08/01/2025</td><td>Purchase: Smart Watch</td><td><span class="transaction-type type-purchase">Purchase</span></td><td class="points-earned">+130</td><td>2,400</td></tr>
+        <tr><td>05/01/2025</td><td>Referral Bonus: Friend signed up</td><td><span class="transaction-type type-bonus">Bonus</span></td><td class="points-earned">+200</td><td>2,270</td></tr>
+      </table>
+      <div class="pagination">
+        <div class="page-btn active">1</div>
+        <div class="page-btn">2</div>
+        <div class="page-btn">3</div>
+      </div>
+    </div>
+
+    <!-- REFERRAL BOX -->
+    <div class="referral-box">
+      <div class="text">
+        <h4>Refer a Friend — Earn 200 Bonus Points!</h4>
+        <p>Share your unique code. When they sign up and make their first purchase, you both earn 200 points.</p>
+      </div>
+      <div class="code-area">
+        <div class="referral-code">RETAIL-AB12CD</div>
+        <div class="copy-btn">Copy Code</div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">© 2025 Retail Innovations | Privacy Policy | Terms of Service</footer>
+</div>
+</body>
+</html>

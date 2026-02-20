@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Wireframe - FP2: Analytics Dashboard</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 20px; }
+.page-label { text-align: center; font-size: 14px; color: #666; margin-bottom: 10px; font-weight: bold; }
+.wireframe { width: 1200px; margin: 0 auto; background: white; border: 2px solid #333; }
+.nav { display: flex; align-items: center; justify-content: space-between; padding: 15px 30px; border-bottom: 2px solid #333; background: #fafafa; }
+.nav-logo { font-size: 20px; font-weight: bold; color: #333; }
+.nav-links { display: flex; gap: 25px; }
+.nav-link { padding: 8px 16px; border: 1px solid #999; border-radius: 4px; font-size: 13px; color: #555; }
+.nav-link.active { background: #333; color: white; }
+
+.dashboard { display: flex; min-height: 850px; }
+
+/* SIDEBAR NAV */
+.dash-sidebar { width: 220px; background: #2c2c2c; color: #ccc; padding: 20px 0; border-right: 2px solid #333; }
+.dash-user { padding: 15px 20px; border-bottom: 1px solid #444; margin-bottom: 15px; }
+.dash-user .avatar { width: 40px; height: 40px; background: #555; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #aaa; margin-bottom: 8px; }
+.dash-user .name { font-size: 14px; color: white; }
+.dash-user .role { font-size: 11px; color: #888; }
+.dash-nav-item { padding: 12px 20px; font-size: 13px; color: #aaa; display: flex; align-items: center; gap: 10px; }
+.dash-nav-item.active { background: #444; color: white; border-left: 3px solid white; }
+.dash-nav-item .icon { width: 18px; text-align: center; }
+
+/* MAIN DASHBOARD */
+.dash-main { flex: 1; padding: 25px; background: #f5f5f5; }
+.dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+.dash-header h1 { font-size: 24px; color: #333; }
+.dash-header .date-range { display: flex; gap: 8px; }
+.dash-header .date-btn { padding: 8px 16px; border: 1px solid #999; font-size: 12px; color: #555; background: white; }
+.dash-header .date-btn.active { background: #333; color: white; }
+
+/* KPI CARDS */
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 25px; }
+.kpi-card { background: white; border: 1px solid #ddd; padding: 20px; border-radius: 4px; }
+.kpi-card .label { font-size: 12px; color: #888; margin-bottom: 5px; text-transform: uppercase; }
+.kpi-card .value { font-size: 28px; font-weight: bold; color: #333; margin-bottom: 5px; }
+.kpi-card .change { font-size: 12px; }
+.kpi-card .change.up { color: #2e7d32; }
+.kpi-card .change.down { color: #c62828; }
+.kpi-card .sparkline { height: 30px; margin-top: 8px; background: #f5f5f5; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #999; }
+
+/* CHARTS ROW */
+.charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; margin-bottom: 25px; }
+.chart-card { background: white; border: 1px solid #ddd; padding: 20px; border-radius: 4px; }
+.chart-card h3 { font-size: 16px; color: #333; margin-bottom: 15px; }
+.chart-placeholder { height: 250px; background: #f8f8f8; border: 1px dashed #ccc; display: flex; align-items: center; justify-content: center; color: #999; font-size: 13px; text-align: center; }
+
+/* TABLE ROW */
+.table-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+.table-card { background: white; border: 1px solid #ddd; padding: 20px; border-radius: 4px; }
+.table-card h3 { font-size: 16px; color: #333; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+.table-card .view-all { font-size: 12px; color: #666; text-decoration: underline; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { text-align: left; padding: 10px 8px; background: #f5f5f5; color: #555; font-weight: bold; border-bottom: 2px solid #ddd; }
+td { padding: 10px 8px; border-bottom: 1px solid #eee; color: #555; }
+.status-badge { padding: 3px 8px; border-radius: 10px; font-size: 10px; }
+.status-badge.high { background: #e8f5e9; color: #2e7d32; }
+.status-badge.med { background: #fff3e0; color: #e65100; }
+.status-badge.low { background: #ffebee; color: #c62828; }
+
+/* BOTTOM ROW */
+.bottom-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+
+.footer { padding: 15px 30px; background: #333; color: #aaa; font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="page-label">WIREFRAME: FP2 — RETAIL ANALYTICS DASHBOARD (Admin/Retailer View) — Retail Innovations</div>
+<div class="wireframe">
+  <nav class="nav">
+    <div class="nav-logo">[Logo] Retail Innovations</div>
+    <div class="nav-links">
+      <div class="nav-link">Home</div>
+      <div class="nav-link">Products</div>
+      <div class="nav-link active">Dashboard</div>
+      <div class="nav-link">Loyalty</div>
+      <div class="nav-link">Logout (Admin)</div>
+    </div>
+  </nav>
+
+  <div class="dashboard">
+    <!-- SIDEBAR -->
+    <aside class="dash-sidebar">
+      <div class="dash-user">
+        <div class="avatar">Img</div>
+        <div class="name">[Admin Name]</div>
+        <div class="role">Retailer Account</div>
+      </div>
+      <div class="dash-nav-item active"><span class="icon">📊</span> Overview</div>
+      <div class="dash-nav-item"><span class="icon">📦</span> Products</div>
+      <div class="dash-nav-item"><span class="icon">🛒</span> Orders</div>
+      <div class="dash-nav-item"><span class="icon">👥</span> Customers</div>
+      <div class="dash-nav-item"><span class="icon">💰</span> Revenue</div>
+      <div class="dash-nav-item"><span class="icon">🏷</span> Loyalty Prog.</div>
+      <div class="dash-nav-item"><span class="icon">⚙</span> Settings</div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="dash-main">
+      <div class="dash-header">
+        <h1>Dashboard Overview</h1>
+        <div class="date-range">
+          <div class="date-btn">Today</div>
+          <div class="date-btn active">7 Days</div>
+          <div class="date-btn">30 Days</div>
+          <div class="date-btn">Custom ▼</div>
+        </div>
+      </div>
+
+      <!-- KPI CARDS -->
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <div class="label">Total Revenue</div>
+          <div class="value">£12,450</div>
+          <div class="change up">▲ 12.5% vs last period</div>
+          <div class="sparkline">[Sparkline Chart]</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Orders</div>
+          <div class="value">342</div>
+          <div class="change up">▲ 8.3% vs last period</div>
+          <div class="sparkline">[Sparkline Chart]</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Active Customers</div>
+          <div class="value">1,205</div>
+          <div class="change up">▲ 3.1% vs last period</div>
+          <div class="sparkline">[Sparkline Chart]</div>
+        </div>
+        <div class="kpi-card">
+          <div class="label">Avg. Order Value</div>
+          <div class="value">£36.40</div>
+          <div class="change down">▼ 2.1% vs last period</div>
+          <div class="sparkline">[Sparkline Chart]</div>
+        </div>
+      </div>
+
+      <!-- CHARTS -->
+      <div class="charts-row">
+        <div class="chart-card">
+          <h3>Revenue Over Time</h3>
+          <div class="chart-placeholder">[ Line Chart ]<br><br>X-axis: Dates (7 day range)<br>Y-axis: Revenue (£)<br>Line: Daily revenue with data points<br>Tooltip on hover showing exact values<br><br>Fetched from Supabase: orders table<br>Aggregated by date using JavaScript</div>
+        </div>
+        <div class="chart-card">
+          <h3>Sales by Category</h3>
+          <div class="chart-placeholder">[ Doughnut / Pie Chart ]<br><br>Segments:<br>Electronics: 35%<br>Clothing: 25%<br>Home & Garden: 20%<br>Sports: 12%<br>Books: 8%<br><br>Legend below chart<br>% labels on segments</div>
+        </div>
+      </div>
+
+      <!-- TABLES -->
+      <div class="table-row">
+        <div class="table-card">
+          <h3>Top Selling Products <span class="view-all">View All →</span></h3>
+          <table>
+            <tr><th>Product</th><th>Category</th><th>Units Sold</th><th>Revenue</th></tr>
+            <tr><td>[Product Name]</td><td>Electronics</td><td>156</td><td>£7,644</td></tr>
+            <tr><td>[Product Name]</td><td>Clothing</td><td>134</td><td>£4,020</td></tr>
+            <tr><td>[Product Name]</td><td>Sports</td><td>98</td><td>£2,940</td></tr>
+            <tr><td>[Product Name]</td><td>Home</td><td>87</td><td>£1,740</td></tr>
+            <tr><td>[Product Name]</td><td>Books</td><td>76</td><td>£760</td></tr>
+          </table>
+        </div>
+        <div class="table-card">
+          <h3>Inventory Alerts <span class="view-all">View All →</span></h3>
+          <table>
+            <tr><th>Product</th><th>Stock</th><th>Status</th></tr>
+            <tr><td>[Product Name]</td><td>3</td><td><span class="status-badge low">Critical</span></td></tr>
+            <tr><td>[Product Name]</td><td>8</td><td><span class="status-badge low">Low</span></td></tr>
+            <tr><td>[Product Name]</td><td>15</td><td><span class="status-badge med">Warning</span></td></tr>
+            <tr><td>[Product Name]</td><td>42</td><td><span class="status-badge high">OK</span></td></tr>
+            <tr><td>[Product Name]</td><td>120</td><td><span class="status-badge high">OK</span></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- BOTTOM: Customer insights -->
+      <div class="bottom-row">
+        <div class="chart-card">
+          <h3>Customer Activity</h3>
+          <div class="chart-placeholder" style="height:150px;">[ Bar Chart ]<br>New vs Returning<br>customers per day</div>
+        </div>
+        <div class="chart-card">
+          <h3>Loyalty Points Issued</h3>
+          <div class="chart-placeholder" style="height:150px;">[ Area Chart ]<br>Points issued<br>over time</div>
+        </div>
+        <div class="chart-card">
+          <h3>Page Views</h3>
+          <div class="chart-placeholder" style="height:150px;">[ Line Chart ]<br>Page views<br>per page</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">© 2025 Retail Innovations | Admin Dashboard v1.0</footer>
+</div>
+</body>
+</html>

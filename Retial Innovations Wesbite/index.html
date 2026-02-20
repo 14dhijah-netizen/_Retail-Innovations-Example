@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retail Innovations Ltd — Digital Platform</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+
+<!-- Toast Notifications -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ==================== LOGIN / REGISTER SCREEN ==================== -->
+<div class="auth-screen" id="authScreen">
+    <div class="auth-bg-pattern"></div>
+    <div class="auth-card">
+        <div class="auth-brand">
+            <div class="brand-icon">RI</div>
+            <div class="brand-name">Retail <span>Innovations</span></div>
+        </div>
+        <p class="auth-subtitle" id="authSubtitle">Sign in to your account</p>
+
+        <!-- Login Form -->
+        <div class="auth-form" id="loginForm" style="display:block">
+            <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-input" id="authEmail" placeholder="you@example.com">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" class="form-input" id="authPassword" placeholder="••••••••">
+            </div>
+            <!-- Extra fields for register mode -->
+            <div id="registerFields" style="display:none">
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <input type="text" class="form-input" id="authFullName" placeholder="Jane Doe">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Confirm Password</label>
+                    <input type="password" class="form-input" id="authPasswordConfirm" placeholder="••••••••">
+                </div>
+            </div>
+
+            <button class="btn btn-primary auth-full-btn" id="authSubmitBtn" onclick="handleAuth()">Sign In</button>
+
+            <div class="auth-toggle">
+                <span id="authToggleText">Don't have an account?</span>
+                <button class="auth-toggle-btn" id="authToggleBtn" onclick="toggleAuthMode()">Create one</button>
+            </div>
+        </div>
+
+        <div class="auth-footer">
+            <span class="supabase-status" id="authStatus">
+                <span class="status-dot" id="authStatusDot"></span>
+                <span id="authStatusText">Signed out</span>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== MAIN APP (hidden until logged in) ==================== -->
+<div class="app-wrapper" id="appWrapper" style="display:none">
+
+    <!-- Top Bar -->
+    <header class="top-bar">
+        <div class="brand">
+            <div class="brand-icon">RI</div>
+            <div class="brand-name">Retail <span>Innovations</span></div>
+        </div>
+        <div class="top-bar-actions">
+            <div class="user-badge" id="userBadge">
+                <span class="user-avatar" id="userAvatar">?</span>
+                <div class="user-info">
+                    <span class="user-name" id="userName">User</span>
+                    <span class="user-role" id="userRole">customer</span>
+                </div>
+            </div>
+            <button class="btn btn-sm" onclick="handleLogout()">Sign Out</button>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" id="navTabs">
+        <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+        <button class="nav-tab" data-tab="products">Products</button>
+        <button class="nav-tab admin-only" data-tab="customers">Customers</button>
+        <button class="nav-tab" data-tab="orders">Orders</button>
+        <button class="nav-tab" data-tab="loyalty">Loyalty</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- ==================== DASHBOARD ==================== -->
+        <section class="section-panel active" id="panel-dashboard">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Dashboard</h1>
+                    <p class="section-subtitle">Retail analytics at a glance</p>
+                </div>
+                <button class="btn" onclick="loadDashboard()">↻ Refresh</button>
+            </div>
+
+            <!-- Admin-only stats -->
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Products</div>
+                    <div class="stat-value" id="statProducts">—</div>
+                    <div class="stat-change">Active inventory</div>
+                </div>
+                <div class="stat-card admin-only">
+                    <div class="stat-label">Total Customers</div>
+                    <div class="stat-value" id="statCustomers">—</div>
+                    <div class="stat-change">Registered users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Orders</div>
+                    <div class="stat-value" id="statOrders">—</div>
+                    <div class="stat-change" id="statOrdersLabel">Your orders</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Revenue</div>
+                    <div class="stat-value" id="statRevenue">—</div>
+                    <div class="stat-change" id="statRevenueLabel">Order total</div>
+                </div>
+            </div>
+
+            <div class="charts-grid admin-only">
+                <div class="chart-card">
+                    <div class="chart-title">Sales by Category</div>
+                    <div class="chart-placeholder">
+                        <div class="bar-chart" id="barChart"></div>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-title">Customer Tiers</div>
+                    <div class="chart-placeholder">
+                        <div class="donut-wrap" id="donutChart">
+                            <div class="donut-chart" id="donutRing"></div>
+                            <div class="donut-legend" id="donutLegend"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PRODUCTS ==================== -->
+        <section class="section-panel" id="panel-products">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Products</h1>
+                    <p class="section-subtitle">Browse our product catalogue</p>
+                </div>
+                <button class="btn btn-primary admin-only" onclick="openProductModal()">+ Add Product</button>
+            </div>
+            <div class="toolbar">
+                <div class="search-box">
+                    <span class="search-icon">⌕</span>
+                    <input type="text" id="productSearch" placeholder="Search products..." oninput="filterProducts()">
+                </div>
+                <select class="filter-select" id="productCategoryFilter" onchange="filterProducts()">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
+                            <th class="admin-only">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody"></tbody>
+                </table>
+                <div class="table-info"><span id="productCount">0 products</span></div>
+            </div>
+        </section>
+
+        <!-- ==================== CUSTOMERS (admin only) ==================== -->
+        <section class="section-panel admin-only" id="panel-customers">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Customers</h1>
+                    <p class="section-subtitle">Customer management &amp; loyalty tracking</p>
+                </div>
+                <button class="btn btn-primary" onclick="openCustomerModal()">+ Add Customer</button>
+            </div>
+            <div class="loyalty-tier-visual">
+                <div class="tier-card bronze"><div class="tier-icon">🥉</div><div class="tier-name">Bronze</div><div class="tier-range">0–499 pts</div></div>
+                <div class="tier-card silver"><div class="tier-icon">🥈</div><div class="tier-name">Silver</div><div class="tier-range">500–999 pts</div></div>
+                <div class="tier-card gold"><div class="tier-icon">🥇</div><div class="tier-name">Gold</div><div class="tier-range">1000–1999 pts</div></div>
+                <div class="tier-card platinum"><div class="tier-icon">💎</div><div class="tier-name">Platinum</div><div class="tier-range">2000+ pts</div></div>
+            </div>
+            <div class="toolbar">
+                <div class="search-box">
+                    <span class="search-icon">⌕</span>
+                    <input type="text" id="customerSearch" placeholder="Search customers..." oninput="filterCustomers()">
+                </div>
+                <select class="filter-select" id="customerTierFilter" onchange="filterCustomers()">
+                    <option value="">All Tiers</option>
+                    <option value="Bronze">Bronze</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Platinum">Platinum</option>
+                </select>
+            </div>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Customer</th><th>Phone</th><th>Loyalty Points</th><th>Tier</th><th>Total Spent</th><th>Actions</th></tr>
+                    </thead>
+                    <tbody id="customersTableBody"></tbody>
+                </table>
+                <div class="table-info"><span id="customerCount">0 customers</span></div>
+            </div>
+        </section>
+
+        <!-- ==================== ORDERS ==================== -->
+        <section class="section-panel" id="panel-orders">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Orders</h1>
+                    <p class="section-subtitle" id="ordersSubtitle">Your orders</p>
+                </div>
+                <button class="btn btn-primary" onclick="openOrderModal()">+ New Order</button>
+            </div>
+            <div class="toolbar">
+                <div class="search-box">
+                    <span class="search-icon">⌕</span>
+                    <input type="text" id="orderSearch" placeholder="Search orders..." oninput="filterOrders()">
+                </div>
+                <select class="filter-select" id="orderStatusFilter" onchange="filterOrders()">
+                    <option value="">All Statuses</option>
+                    <option value="pending">Pending</option>
+                    <option value="processing">Processing</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="delivered">Delivered</option>
+                    <option value="cancelled">Cancelled</option>
+                </select>
+            </div>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th class="admin-only">Customer</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody"></tbody>
+                </table>
+                <div class="table-info"><span id="orderCount">0 orders</span></div>
+            </div>
+        </section>
+
+        <!-- ==================== LOYALTY ==================== -->
+        <section class="section-panel" id="panel-loyalty">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Loyalty Programme</h1>
+                    <p class="section-subtitle">Available rewards</p>
+                </div>
+                <button class="btn btn-primary admin-only" onclick="openRewardModal()">+ Add Reward</button>
+            </div>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Reward</th><th>Type</th><th>Value</th><th>Points Required</th><th>Status</th><th class="admin-only">Actions</th></tr>
+                    </thead>
+                    <tbody id="rewardsTableBody"></tbody>
+                </table>
+                <div class="table-info"><span id="rewardCount">0 rewards</span></div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- ==================== MODALS ==================== -->
+
+<!-- Product Modal -->
+<div class="modal-overlay" id="productModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="productModalTitle">Add Product</h2>
+            <button class="modal-close" onclick="closeModal('productModal')">✕</button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="productEditId">
+            <div class="form-group">
+                <label class="form-label">Product Name</label>
+                <input type="text" class="form-input" id="prodName" placeholder="e.g. Organic Green Tea">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">SKU</label>
+                    <input type="text" class="form-input" id="prodSku" placeholder="e.g. BEV-002">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <input type="text" class="form-input" id="prodCategory" placeholder="e.g. Beverages">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Price (£)</label>
+                    <input type="number" step="0.01" class="form-input" id="prodPrice" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Stock Quantity</label>
+                    <input type="number" class="form-input" id="prodStock" placeholder="0">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-textarea" id="prodDesc" placeholder="Brief product description..."></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Image URL</label>
+                <input type="url" class="form-input" id="prodImage" placeholder="https://...">
+            </div>
+            <label class="form-checkbox">
+                <input type="checkbox" id="prodActive" checked>
+                <span>Active (visible in store)</span>
+            </label>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" onclick="closeModal('productModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+        </div>
+    </div>
+</div>
+
+<!-- Customer Modal -->
+<div class="modal-overlay" id="customerModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="customerModalTitle">Add Customer</h2>
+            <button class="modal-close" onclick="closeModal('customerModal')">✕</button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="customerEditId">
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-input" id="custName" placeholder="e.g. Jane Doe">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="custEmail" placeholder="jane@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" class="form-input" id="custPhone" placeholder="07700 900000">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Loyalty Points</label>
+                    <input type="number" class="form-input" id="custPoints" placeholder="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Loyalty Tier</label>
+                    <select class="form-select" id="custTier">
+                        <option value="Bronze">Bronze</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Gold">Gold</option>
+                        <option value="Platinum">Platinum</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" onclick="closeModal('customerModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="saveCustomer()">Save Customer</button>
+        </div>
+    </div>
+</div>
+
+<!-- Order Modal -->
+<div class="modal-overlay" id="orderModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="orderModalTitle">New Order</h2>
+            <button class="modal-close" onclick="closeModal('orderModal')">✕</button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="orderEditId">
+            <div class="form-group admin-only">
+                <label class="form-label">Customer</label>
+                <select class="form-select" id="orderCustomer">
+                    <option value="">Select customer...</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Total Amount (£)</label>
+                    <input type="number" step="0.01" class="form-input" id="orderTotal" placeholder="0.00">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" id="orderStatus">
+                        <option value="pending">Pending</option>
+                        <option value="processing">Processing</option>
+                        <option value="shipped">Shipped</option>
+                        <option value="delivered">Delivered</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Payment Method</label>
+                <input type="text" class="form-input" id="orderPayment" placeholder="e.g. Credit Card, PayPal">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Notes</label>
+                <textarea class="form-textarea" id="orderNotes" placeholder="Order notes..."></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" onclick="closeModal('orderModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="saveOrder()">Save Order</button>
+        </div>
+    </div>
+</div>
+
+<!-- Reward Modal -->
+<div class="modal-overlay" id="rewardModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="rewardModalTitle">Add Reward</h2>
+            <button class="modal-close" onclick="closeModal('rewardModal')">✕</button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="rewardEditId">
+            <div class="form-group">
+                <label class="form-label">Reward Name</label>
+                <input type="text" class="form-input" id="rewName" placeholder="e.g. 10% Off Next Order">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Description</label>
+                <textarea class="form-textarea" id="rewDesc" placeholder="Describe the reward..."></textarea>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">Reward Type</label>
+                    <select class="form-select" id="rewType">
+                        <option value="discount_percent">Discount (%)</option>
+                        <option value="discount_fixed">Discount (Fixed £)</option>
+                        <option value="free_product">Free Product</option>
+                        <option value="free_shipping">Free Shipping</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Reward Value</label>
+                    <input type="number" step="0.01" class="form-input" id="rewValue" placeholder="0.00">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Points Required</label>
+                <input type="number" class="form-input" id="rewPoints" placeholder="500">
+            </div>
+            <label class="form-checkbox">
+                <input type="checkbox" id="rewActive" checked>
+                <span>Active reward</span>
+            </label>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" onclick="closeModal('rewardModal')">Cancel</button>
+            <button class="btn btn-primary" onclick="saveReward()">Save Reward</button>
+        </div>
+    </div>
+</div>
+
+<script src="static/app.js"></script>
+</body>
+</html>
